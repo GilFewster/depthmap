@@ -8,10 +8,17 @@ module.exports = {
     src: { url: "/dist" },
   },
   plugins: [
-    /* ... */
+    [
+      "@snowpack/plugin-sass",
+      {
+        useAlias: true,
+        aliasPrefix: "@",
+      },
+    ],
   ],
   alias: {
     "libheif-js": "libheif-js/libheif/libheif.js",
+    "@scss": "/dist/styles",
   },
   packageOptions: {
     polyfillNode: true,

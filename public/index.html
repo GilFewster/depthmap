@@ -4,39 +4,27 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="dist/styles/index.css" />
     <title>Converter</title>
-    <style>
-      label {
-        display: inline-block;
-        margin: 2em 0;
-        padding: 1em;
-        border: 1px solid #ccc;
-      }
-
-      form input {
-        display: block;
-        margin: 0.5em 0;
-      }
-
-      div img {
-        width: 150px;
-        border: 1px solid #555;
-      }
-    </style>
   </head>
   <body>
-    <form id="fileUploadForm">
-      <label for="imageInput">
-        Image File: <input id="imageInput" name="imageInput" type="file" />
-      </label>
-      <label for="depthmapInput">
-        Depthmap File:
-        <input id="depthmapInput" name="depthmapInput" type="file" />
-      </label>
-      <input type="submit" />
-    </form>
-    <div id="imgPreview"></div>
-    <div id="depthmapPreview"></div>
+    <header id="page-header">
+      <form id="fileUploadForm">
+        <label for="imageInput">
+          Image<input id="imageInput" name="imageInput" type="file" />
+        </label>
+        <label for="depthmapInput">
+          Depthmap
+          <input id="depthmapInput" name="depthmapInput" type="file" />
+        </label>
+        <input type="submit" />
+      </form>
+      <div id="imgPreview"></div>
+      <div id="depthmapPreview"></div>
+    </header>
+    <main>
+      <div id="pixi"></div>
+    </main>
     <script type="module" src="/dist/index.js"></script>
   </body>
 </html>
