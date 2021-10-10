@@ -5,26 +5,27 @@ import { useState } from "./state";
 const fileUploadForm = document.querySelector("#fileUploadForm");
 const imageInput = document.querySelector("#imageInput");
 const depthmapInput = document.querySelector("#depthmapInput");
-
 const canvasContainer = document.querySelector("#pixi");
 
 const [maxScale, setMaxScale] = useState(5);
+const [displacementFilter, setDisplacementFilter] = useState();
 const [windowSize, setWindowSize] = useState({
   width: window.innerWidth,
   height: window.innerHeight,
 });
 
-const [displacementFilter, setDisplacementFilter] = useState();
-
-fileUploadForm.addEventListener("submit", (e) => {
+fileUploadForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  submitForm(imageInput, depthmapInput).then(([img, map]) => {
-    const { filter, parallax } = getParallax(img, map, 1200, 900);
-    canvasContainer.innerHTML = "";
-    canvasContainer.appendChild(parallax);
-    setDisplacementFilter(filter);
-  });
+  const [img, map] = await submitForm(imageInput, depthmapInput);
+  updateView(img, map);
 });
+
+const updateView = (img, map) => {
+  const { filter, parallax } = getParallax(img, map, 1200, 900);
+  canvasContainer.innerHTML = "";
+  canvasContainer.appendChild(parallax);
+  setDisplacementFilter(filter);
+};
 
 window.onmousemove = function (e) {
   if (displacementFilter()) {

@@ -17,18 +17,4 @@ export const submitForm = (imageInput, depthmapInput) => {
       reject(e);
     }
   });
-
-  // uploadImage(URL.createObjectURL(image)).then((el) =>
-  //   imgPreview.appendChild(el)
-  // );
-
-  // uploadImage(URL.createObjectURL(depthmap)).then((el) =>
-  //   depthmapPreview.appendChild(el)
-  // );
 };
-
-// const uploadImage = async (filepath) => {
-//   const img = document.createElement("img");
-//   img.src = filepath;
-//   return img;
-// };
