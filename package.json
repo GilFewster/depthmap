@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "heic-decode": "^1.1.2",
+    "heic2any": "^0.0.3",
     "libheif-js": "^1.12.0",
     "pixi.js": "^6.1.3"
   },

@@ -1,3 +1,5 @@
+import heic2any from "heic2any";
+
 import { getParallax } from "./pixi-functions";
 import { useState } from "./state";
 
@@ -12,49 +14,47 @@ const [windowSize, setWindowSize] = useState({
   height: window.innerHeight,
 });
 
-const submitForm = (imageInput) => {
-  const src = imageInput.files[0];
-  if (!src) {
-    console.log("Add an image first!");
-    return;
-  }
-  readFile(src);
-};
-
-const readFile = (src) => {
-  const reader = new FileReader();
-  try {
-    reader.readAsArrayBuffer(src);
-    reader.onloadend = (evt) => {
-      if (evt.target.readyState === FileReader.DONE) {
-        const arrayBuffer = evt.target.result;
-        const array = new Uint8Array(arrayBuffer);
-        const fileByteArray = [];
-
-        for (const a of array) {
-          fileByteArray.push(a);
-        }
-        decodeImage(fileByteArray);
-      }
-    };
-  } catch (e) {
-    console.error(e);
-    if (reader) {
-      reader.abort();
+const readFile = (inputValue) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const imageObjectUrl = await URL.createObjectURL(inputValue);
+      resolve(imageObjectUrl);
+    } catch (e) {
+      reject(e);
     }
-  }
+  });
 };
 
 fileUploadForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  submitForm(imageInput);
+  const src = imageInput.files[0];
+
+  if (!src) {
+    console.log("Add an image first!");
+    return;
+  }
+
+  var fileReader = new FileReader();
+  fileReader.onloadend = function (e) {
+    const arrayBuffer = e.target.result;
+    decodeImage(new Blob([arrayBuffer]));
+  };
+
+  fileReader.readAsArrayBuffer(src);
 });
 
-const decodeImage = async (buffer) => {
-  console.log("Decode arrayBuffer", buffer);
-  const decoder = new libheif.HeifDecoder();
-  const decoded = await decoder.decode({ buffer });
-  console.log("Decoded", decoded);
+const decodeImage = async (blob) => {
+  console.log("Decoding heic blob");
+  heic2any({ blob, toType: "image/png", multiple: true }).then(
+    (conversionResult) => {
+      console.log(conversionResult);
+      const objURL = window.URL.createObjectURL(conversionResult[0]);
+      console.log(objURL);
+      const img = document.createElement("img");
+      img.src = objURL;
+      document.body.appendChild(img);
+    }
+  );
 
   // const { filter, parallax } = getParallax(img, map, 1200, 900);
 
