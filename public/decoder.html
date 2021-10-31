@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="dist/styles/index.css" />
+    <title>Decoder</title>
+  </head>
+  <body>
+    <header id="page-header">
+      <form id="fileUploadForm">
+        <label for="imageInput">
+          Image<input id="imageInput" name="imageInput" type="file" />
+        </label>
+        <input type="submit" />
+      </form>
+      <div id="imgPreview"></div>
+    </header>
+    <main>
+      <div id="pixi"></div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/libheif-js@1.10.0/libheif/libheif.min.js"></script>
+    <script type="module" src="/dist/decoder.js"></script>
+  </body>
+</html>
